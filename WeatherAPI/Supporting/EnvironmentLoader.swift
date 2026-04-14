@@ -23,9 +23,9 @@ struct EnvironmentLoader {
                         setenv(key, value, 1)
                     }
                 }
-                print("✅ Environment variables loaded")
+                print("Environment variables loaded")
             } catch {
-                print("❌ Failed to load .env file: \(error)")
+                print("Failed to load .env file: \(error)")
             }
         }
     }
