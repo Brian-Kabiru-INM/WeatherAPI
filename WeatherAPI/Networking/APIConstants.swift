@@ -1,3 +1,9 @@
+//
+//  APIConstants.swift
+//  WeatherAPI
+//
+//  Created by Brian Kabiru on 20/04/2026.
+//
 import Foundation
 
 enum APIConstants {
@@ -21,5 +27,19 @@ enum APIConstants {
             return url
         }
         return "https://openweathermap.org/img/wn/" // Fallback
+    }()
+
+    static let jsonPlaceholderBaseURL: String = {
+        if let url = ProcessInfo.processInfo.environment["BLOG_BASE_URL"] {
+            return url
+        }
+        return "https://jsonplaceholder.typicode.com"
+    }()
+
+    static let dummyAuthBaseURL: String = {
+        if let url = ProcessInfo.processInfo.environment["DUMMY_AUTH_BASE_URL"] {
+            return url
+        }
+        return "https://dummyjson.com"
     }()
 }

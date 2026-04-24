@@ -1,3 +1,9 @@
+//
+//  HomeViewController.swift
+//  WeatherAPI
+//
+//  Created by Brian Kabiru on 20/04/2026.
+//
 import UIKit
 
 final class HomeViewController: UIViewController {
@@ -25,6 +31,7 @@ final class HomeViewController: UIViewController {
         titleLabel.textColor = .label
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
 
+        
         activityIndicator.hidesWhenStopped = true
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
     }

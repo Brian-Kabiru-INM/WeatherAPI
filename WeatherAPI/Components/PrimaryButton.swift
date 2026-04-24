@@ -1,3 +1,9 @@
+//
+//  PrimaryButton.swift
+//  WeatherAPI
+//
+//  Created by Brian Kabiru on 20/04/2026.
+//
 import UIKit
 
 final class PrimaryButton: UIButton {
@@ -13,7 +19,7 @@ final class PrimaryButton: UIButton {
     }
 
     private func setup() {
-        backgroundColor = .systemCyan
+        backgroundColor = .cyanGreen
         setTitleColor(.white, for: .normal)
         titleLabel?.font = .boldSystemFont(ofSize: 16)
         layer.cornerRadius = 24

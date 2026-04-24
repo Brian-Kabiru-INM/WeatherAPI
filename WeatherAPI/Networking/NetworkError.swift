@@ -1,3 +1,9 @@
+//
+//  NetworkError.swift
+//  WeatherAPI
+//
+//  Created by Brian Kabiru on 20/04/2026.
+//
 import Foundation
 
 enum NetworkError: LocalizedError {
@@ -7,6 +13,8 @@ enum NetworkError: LocalizedError {
     case serverError
     case decodingFailed
     case networkUnavailable
+    case resourceNotFound
+    case invalidCredentials
     case unknown
 
     var errorDescription: String? {
@@ -23,6 +31,10 @@ enum NetworkError: LocalizedError {
             return "Could not parse weather data."
         case .networkUnavailable:
             return "No internet connection."
+        case .resourceNotFound:
+            return "Requested resource was not found."
+        case .invalidCredentials:
+            return "Invalid username or password."
         case .unknown:
             return "Something went wrong."
         }

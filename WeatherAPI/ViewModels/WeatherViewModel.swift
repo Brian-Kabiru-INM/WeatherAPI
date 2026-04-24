@@ -1,3 +1,9 @@
+//
+//  WeatherViewModel.swift
+//  WeatherAPI
+//
+//  Created by Brian Kabiru on 20/04/2026.
+//
 import Foundation
 
 enum WeatherViewState {

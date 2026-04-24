@@ -1,10 +1,17 @@
+//
+//  ToastView.swift
+//  WeatherAPI
+//
+//  Created by Brian Kabiru on 20/04/2026.
+//
 import UIKit
+import SwiftUI
 
 enum ToastStyle {
     case success
     case error
 
-    var backgroundColor: UIColor {
+    var tintColor: UIColor {
         switch self {
         case .success:
             return .systemGreen
@@ -12,12 +19,22 @@ enum ToastStyle {
             return .systemRed
         }
     }
+
+    var backgroundColor: UIColor {
+        switch self {
+        case .success:
+            return UIColor.systemGreen.withAlphaComponent(0.12)
+        case .error:
+            return UIColor.systemRed.withAlphaComponent(0.12)
+        }
+    }
+
     var icon: UIImage? {
         switch self {
         case .success:
-            return UIImage(systemName: "checkmark.circle")
+            return UIImage(systemName: "checkmark.circle.fill")
         case .error:
-            return UIImage(systemName: "exclamationmark.circle")
+            return UIImage(systemName: "xmark.octagon.fill")
         }
     }
 }
@@ -25,13 +42,17 @@ enum ToastStyle {
 final class ToastView: UIView {
     private let messageLabel = UILabel()
     private let iconImageView = UIImageView()
+    private let stackView = UIStackView()
 
     init(message: String, style: ToastStyle) {
         super.init(frame: .zero)
+
         messageLabel.text = message
-        backgroundColor = style.backgroundColor.withAlphaComponent(0.95)
         iconImageView.image = style.icon
-        iconImageView.tintColor = .white
+        iconImageView.tintColor = style.tintColor
+
+        backgroundColor = style.backgroundColor
+
         setup()
     }
 
@@ -41,34 +62,40 @@ final class ToastView: UIView {
     }
 
     private func setup() {
-        layer.cornerRadius = 14
-        alpha = 0
+        layer.cornerRadius = 18
+        layer.masksToBounds = true
+
         translatesAutoresizingMaskIntoConstraints = false
+        alpha = 0
 
-        // Configure label
-        messageLabel.textColor = .white
-        messageLabel.font = .systemFont(ofSize: 16, weight: .semibold)
+        // Label styling (info card style)
+        messageLabel.textColor = .label
+        messageLabel.font = .systemFont(ofSize: 16, weight: .medium)
         messageLabel.numberOfLines = 0
-        messageLabel.translatesAutoresizingMaskIntoConstraints = false
 
-        // Configure IconImageView
-        iconImageView.translatesAutoresizingMaskIntoConstraints = false
+        // Icon styling
         iconImageView.contentMode = .scaleAspectFit
-        
-        addSubview(iconImageView)
-        addSubview(messageLabel)
-        
+        iconImageView.setContentHuggingPriority(.required, for: .horizontal)
+
+        // Stack
+        stackView.axis = .horizontal
+        stackView.spacing = 12
+        stackView.alignment = .center
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+
+        stackView.addArrangedSubview(iconImageView)
+        stackView.addArrangedSubview(messageLabel)
+
+        addSubview(stackView)
+
         NSLayoutConstraint.activate([
-            iconImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 14),
-            iconImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            iconImageView.widthAnchor.constraint(equalToConstant: 24),
-            iconImageView.heightAnchor.constraint(equalToConstant: 24),
-            
-            messageLabel.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: 12),
-            messageLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 10),
-            messageLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -14),
-            messageLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            // messageLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10)
+            iconImageView.widthAnchor.constraint(equalToConstant: 26),
+            iconImageView.heightAnchor.constraint(equalToConstant: 26),
+
+            stackView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
         ])
     }
 
@@ -76,20 +103,68 @@ final class ToastView: UIView {
         view.addSubview(self)
 
         NSLayoutConstraint.activate([
-            heightAnchor.constraint(greaterThanOrEqualToConstant: 50),
-            leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -60)
+            leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40)
         ])
 
-        UIView.animate(withDuration: 0.25, animations: {
+        transform = CGAffineTransform(translationX: 0, y: 20)
+
+        UIView.animate(withDuration: 0.3, animations: {
             self.alpha = 1
+            self.transform = .identity
         }) { _ in
-            UIView.animate(withDuration: 0.25, delay: 2.0, options: [.curveEaseInOut], animations: {
+            UIView.animate(withDuration: 0.25,
+                           delay: 2.5,
+                           options: [.curveEaseInOut],
+                           animations: {
                 self.alpha = 0
+                self.transform = CGAffineTransform(translationX: 0, y: 20)
             }) { _ in
                 self.removeFromSuperview()
             }
         }
     }
+}
+
+// MARK: - SwiftUI Preview
+
+struct ToastPreview: UIViewRepresentable {
+    let message: String
+    let style: ToastStyle
+
+    func makeUIView(context: Context) -> UIView {
+        let container = UIView()
+        container.backgroundColor = .systemBackground
+
+        let toast = ToastView(message: message, style: style)
+        container.addSubview(toast)
+
+        NSLayoutConstraint.activate([
+            toast.centerXAnchor.constraint(equalTo: container.centerXAnchor),
+            toast.centerYAnchor.constraint(equalTo: container.centerYAnchor),
+            toast.leadingAnchor.constraint(greaterThanOrEqualTo: container.leadingAnchor, constant: 20),
+            toast.trailingAnchor.constraint(lessThanOrEqualTo: container.trailingAnchor, constant: -20)
+        ])
+
+        toast.alpha = 1
+
+        return container
+    }
+
+    func updateUIView(_ uiView: UIView, context: Context) {}
+}
+
+#Preview("Success Toast") {
+    ToastPreview(
+        message: "Your form was submitted successfully.",
+        style: .success
+    )
+}
+
+#Preview("Error Toast") {
+    ToastPreview(
+        message: "Something went wrong. Please try again.",
+        style: .error
+    )
 }
