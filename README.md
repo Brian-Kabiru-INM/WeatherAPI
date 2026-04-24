@@ -53,3 +53,7 @@ A comprehensive iOS application built with Swift that combines real-time weather
 - **Codable**: JSON encoding/decoding
 ### Screenshot capture
 <img width="1206" height="2622" alt="Simulator Screenshot - iPhone 17 Pro - 2026-04-24 at 10 05 10" src="https://github.com/user-attachments/assets/2f9c083d-b2bd-49b1-8e0b-c3a52cca1ecb" />
+<img width="1206" height="2622" alt="Simulator Screenshot - iPhone 17 Pro - 2026-04-24 at 10 05 36" src="https://github.com/user-attachments/assets/13080e61-ad18-4450-9208-eabca8b241cc" />
+<img width="1206" height="2622" alt="Simulator Screenshot - iPhone 17 Pro - 2026-04-24 at 10 05 41" src="https://github.com/user-attachments/assets/fbeb0390-074d-4407-a038-fecd5d523493" />
+<img width="1206" height="2622" alt="Simulator Screenshot - iPhone 17 Pro - 2026-04-24 at 10 05 56" src="https://github.com/user-attachments/assets/839b82ba-93b9-4e6a-96f6-bfd2d53bcc58" />
+<img width="1206" height="2622" alt="Simulator Screenshot - iPhone 17 Pro - 2026-04-24 at 10 06 01" src="https://github.com/user-attachments/assets/37f406e6-63bb-4a1a-aa87-0b9b25ae8b91" />
