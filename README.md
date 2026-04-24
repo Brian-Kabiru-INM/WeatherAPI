@@ -51,3 +51,5 @@ A comprehensive iOS application built with Swift that combines real-time weather
 - **UIKit**: Native iOS UI framework
 - **Foundation**: Core Swift libraries
 - **Codable**: JSON encoding/decoding
+### Screenshot capture
+<img width="1206" height="2622" alt="Simulator Screenshot - iPhone 17 Pro - 2026-04-24 at 10 05 10" src="https://github.com/user-attachments/assets/2f9c083d-b2bd-49b1-8e0b-c3a52cca1ecb" />
